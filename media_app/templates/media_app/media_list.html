@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+      h2 {
+        color: #333;
+      }
+      a {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      a:hover {
+        background-color: #0056b3;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      img,
+      video,
+      audio {
+        display: block;
+        margin-top: 10px;
+      }
+      hr {
+        border: 0;
+        height: 1px;
+        background: #ddd;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Uploaded Media</h2>
+    <a href="{% url 'upload_media' %}">Upload More</a>
+    <ul>
+      {% for media in media_files %}
+      <li>
+        <strong>{{ media.title }}</strong> ({{ media.media_type }})<br />
+        {% if media.media_type == 'image' %}
+        <img src="{{ media.file.url }}" width="200" alt="{{ media.title }}" />
+        {% elif media.media_type == 'video' %}
+        <video width="320" controls>
+          <source src="{{ media.file.url }}" />
+        </video>
+        {% elif media.media_type == 'audio' %}
+        <audio controls>
+          <source src="{{ media.file.url }}" />
+        </audio>
+        {% endif %}
+      </li>
+      <hr />
+      {% endfor %}
+    </ul>
+  </body>
+</html>
