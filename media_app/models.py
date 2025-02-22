@@ -3,11 +3,11 @@ from django.db import models
 # Create your models here.
 
 class MediaFile(models.Model):
-    MEDIA_TYPES = (
+    MEDIA_TYPES = [
         ('image', 'Image'),
         ('video', 'Video'),
-        ('audio','Audio')
-    )
+        ('audio', 'Audio')
+    ]
 
     title = models.CharField(max_length=255)
     file = models.FileField(upload_to='uploads/')
